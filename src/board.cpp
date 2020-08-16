@@ -4,6 +4,8 @@
 
 #include"../include/board.hpp"
 
+using namespace JumpGame;
+
 Board::Board(int m, int n){
     this->m = m;
     this->n = n;
@@ -22,7 +24,7 @@ Board::~Board(){
 }
 
 int Board::matrix_index_to_node(int i, int j){
-    return (this->m * i) + j;
+    return (this->n * i) + j;
 }
 
 bool Board::is_valid_index(int x, int y){
@@ -63,16 +65,16 @@ void Board::generate_graph(){
             int jump_distance = this->map[i][j];
 
             if(jump_distance != 0){
-                if(jump_distance <= i){
+                if(jump_distance <= i){ // Jump up
                     graph->add_edge(node, this->matrix_index_to_node(i - jump_distance, j));
                 }
-                if(i + jump_distance < m){
+                if(i + jump_distance < m){ // Jump down
                     graph->add_edge(node, this->matrix_index_to_node(i + jump_distance, j));
                 }
-                if(jump_distance <= j){
+                if(jump_distance <= j){ // Jump left
                     graph->add_edge(node, this->matrix_index_to_node(i, j - jump_distance));
                 }
-                if(j + jump_distance < n){
+                if(j + jump_distance < n){ // Jump right
                     graph->add_edge(node, this->matrix_index_to_node(i, j + jump_distance));
                 }
             }
@@ -83,21 +85,4 @@ void Board::generate_graph(){
 
 Graph::ListGraph* Board::get_graph(){
     return this->graph;
-}
-
-Board* Board::generate_board(std::string input_path){
-    int m, n;
-    std::ifstream input;
-    input.open(input_path);
-
-    input >> m;
-    input >> n;
-    Board* board = new Board(m, n);
-
-    // while(!input.eof()){
-
-    // }
-
-    board->generate_graph();
-    return board;
 }

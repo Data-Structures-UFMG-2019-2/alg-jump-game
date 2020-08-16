@@ -17,6 +17,7 @@ namespace Graph {
             bool is_valid_node(int node);
             bool has_edge(int source, int dest);
             void add_edge(int source, int dest);
+            void print();
             List::LinkedList<int>** get_nodes();
             List::LinkedList<int>* get_node(int node);
     };

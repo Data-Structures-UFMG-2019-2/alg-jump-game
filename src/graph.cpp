@@ -1,4 +1,5 @@
-#include<stdlib.h>
+#include<cstdlib>
+#include<iostream>
 
 #include"../include/graph.hpp"
 
@@ -46,6 +47,21 @@ void ListGraph::add_edge(int source, int dest){
     List::LinkedList<int>* source_node = this->nodes[source];
     if(!this->has_edge(source, dest)){
         source_node->add(dest);
+    }
+}
+
+void ListGraph::print(){
+    std::cout << "Graph:" << std::endl;
+    for(int i = 0; i < this->size; i++){
+        List::LinkedList<int>* node = this->nodes[i];
+        std::cout << i << ": [";
+        for(List::Cell<int>* it = node->begin(); it != nullptr; it = it->get_next()){
+            std::cout << it->get_object() << ", ";
+        }
+        if(node->length() > 0){
+            std::cout << "\b\b";
+        }
+        std::cout << "]" << std::endl;
     }
 }
 
