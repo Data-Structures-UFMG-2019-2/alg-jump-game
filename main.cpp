@@ -10,18 +10,18 @@ int main(int argc, char* argv[]){
         JumpGame::Game* game;
         try{
             game = new JumpGame::Game(argv[1]);
-            game->get_board()->print_map();
-            game->get_board()->get_graph()->print();
+            // game->get_board()->print_map();
+            // game->get_board()->get_graph()->print();
 
             // std::stack<int>* optimal_path = game->get_players()[0]->get_optimal_path();
             // std::cout << std::endl;
-            game->get_board()->print_visited();
+            // game->get_board()->print_visited();
             int winner = game->run_round();
             while(winner == -1){
-                game->get_board()->print_visited();
+                // game->get_board()->print_visited();
                 winner = game->run_round();
             }
-            game->get_board()->print_visited();
+            // game->get_board()->print_visited();
             std::cout << (char)('A'+winner) << std::endl << game->get_rounds() << std::endl;
             delete game;
         }

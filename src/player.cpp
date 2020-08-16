@@ -84,8 +84,8 @@ void Player::find_path(Board* board){
     }
     this->reconstruct_path(board, path);
     delete queue;
-    delete visited;
-    delete path;
+    free(visited);
+    free(path);
 }
 
 void Player::reconstruct_path(Board* board, int* path){
@@ -99,11 +99,12 @@ void Player::reconstruct_path(Board* board, int* path){
 
     if(reconstructed_path->top() == start){
         reconstructed_path->pop();
-        this->optimal_path = reconstructed_path;
     }
     else{
-        this->winable = false;
+        delete reconstructed_path;
+        reconstructed_path = new std::stack<int>();
     }
+    this->optimal_path = reconstructed_path;
 }
 
 std::stack<int>* Player::get_optimal_path(){

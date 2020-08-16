@@ -2,7 +2,6 @@
 #include<string>
 #include<fstream>
 #include<cmath>
-#include<queue>
 
 #include"../include/game.hpp"
 
@@ -44,7 +43,11 @@ Game::Game(std::string input_path){
 
 Game::~Game(){
     delete this->board;
-    delete this->players;
+    free(this->order);
+    for(int i = 0; i < this->players_number; i++){
+        delete this->players[i];
+    }
+    free(this->players);
 }
 
 Board* Game::get_board(){
@@ -61,40 +64,43 @@ int Game::get_rounds(){
 
 int Game::run_round(){
     this->rounds++;
-    std::queue<int*> visited_positions;
     for(int i = 0; i < this->players_number; i++){
         Player* player = this->players[this->order[i]];
         int x = player->get_x();
         int y = player->get_y();
+        this->board->visit(x, y);
         if(!player->can_win()){
             continue;
         }
+        if(player->get_optimal_path()->empty()){
+            // std::cout << "Player " << (char)('A'+player->get_id()) << " can no longer win: no available movements" << std::endl;
+            player->set_winable(false);
+            this->running_players--;
+            continue;
+        }
         int* new_position = this->board->node_to_matrix_index(player->get_optimal_path()->top());
-        std::cout << "Player " << (char)('A'+player->get_id()) << " goes to [" << new_position[0] << ", " << new_position[1] << "]" << std::endl;
-        if(new_position[0] == this->board->get_m() - 1 && new_position[1] == this->board->get_n() - 1){
+        int new_x = new_position[0];
+        int new_y = new_position[1];
+        // std::cout << "Player " << (char)('A'+player->get_id()) << " goes to [" << new_position[0] << ", " << new_position[1] << "]" << std::endl;
+        if(new_x == this->board->get_m() - 1 && new_y == this->board->get_n() - 1){
+            free(new_position);
             return player->get_id();
         }
-        int jump_size = board->get_map()[x][y];
-        x = new_position[0];
-        y = new_position[1];
 
+        int jump_size = board->get_map()[x][y];
         player->set_last_jump(jump_size);
-        player->set_x(x);
-        player->set_y(y);
+        player->set_x(new_x);
+        player->set_y(new_y);
         player->get_optimal_path()->pop();
 
-        if(player->get_optimal_path()->empty() || this->board->get_visited()[x][y] == 1 || this->board->get_map()[x][y] == 0){
+        if(this->board->get_visited()[new_x][new_y] == 1){
+            // std::cout << "Player " << (char)('A'+player->get_id()) << " can no longer win: visited jump" << std::endl;
             player->set_winable(false);
-            std::cout << "Player " << (char)('A'+player->get_id()) << " can no longer win: " << this->board->get_visited()[x][y] << std::endl;
             this->running_players--;
+            free(new_position);
+            continue;
         }
-        visited_positions.push(new_position);
-    }
-    while(!visited_positions.empty()){
-        int* to_visit = visited_positions.front();
-        this->board->visit(to_visit[0], to_visit[1]);
-        visited_positions.pop();
-        delete to_visit;
+        free(new_position);
     }
     if(this->running_players == 0){
         throw ("SEM VENCEDORES");

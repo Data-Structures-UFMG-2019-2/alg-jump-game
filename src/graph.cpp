@@ -22,7 +22,7 @@ ListGraph::~ListGraph(){
     for(int i =0; i < this->size; i++){
         delete this->nodes[i];
     }
-    delete this->nodes;
+    free(this->nodes);
 }
 
 int ListGraph::get_size(){

@@ -30,7 +30,7 @@ clean:
 	rm $(TARGET_NAME)
 
 run:
-	$(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in
+	$(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in > $(OUTPUT_PATH)/$(RUN_TEST).out
 
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all $(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in > ./output/mem.log

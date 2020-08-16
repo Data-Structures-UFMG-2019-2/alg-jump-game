@@ -19,11 +19,11 @@ Board::Board(int m, int n){
 
 Board::~Board(){
     for(int i = 0; i < this->m; i++){
-        delete this->map[i];
-        delete this->visited[i];
+        free(this->map[i]);
+        free(this->visited[i]);
     }
-    delete this->map;
-    delete this->visited;
+    free(this->map);
+    free(this->visited);
     if(this->graph != nullptr) delete this->graph;
 }
 
