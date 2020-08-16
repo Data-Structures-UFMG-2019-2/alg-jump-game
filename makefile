@@ -7,6 +7,9 @@ TMPOUT_NAME=tp1.out
 BUILD_PATH=./build
 SOURCE_PATH=./src
 LIB_PATH=./include
+INPUT_PATH=./input
+OUTPUT_PATH=./output
+RUN_TEST=03
 
 SOURCE_EXT := cpp
 SOURCES := $(shell find $(SOURCE_PATH) -path '*.$(SOURCE_EXT)')
@@ -16,21 +19,21 @@ all: $(TARGET_NAME)
 
 $(BUILD_PATH)/%.o: $(SOURCE_PATH)/%.cpp $(LIB_PATH)/%.hpp
 	mkdir -p $(BUILD_PATH)
-	mkdir -p $(BUILD_PATH)/queue
 	mkdir -p $(BUILD_PATH)/list
 	$(CC) -c $(CFLAGS) -o $@ $<
 
-$(TARGET_NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(BUILD_PATH)/$(TARGET_NAME) ./main.cpp $(OBJECTS)
+$(TARGET_NAME): $(OBJECTS) ./main.cpp
+	$(CC) $(CFLAGS) -o $(TARGET_NAME) ./main.cpp $(OBJECTS)
 
 clean:
 	rm -rf $(BUILD_PATH)/*
+	rm $(TARGET_NAME)
 
 run:
-	$(BUILD_PATH)/$(TARGET_NAME)
+	$(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in
 
 mem:
-	valgrind --leak-check=full --show-leak-kinds=all $(BUILD_PATH)/$(TARGET_NAME) < ./tests/sample.in > ./output/mem.log
+	valgrind --leak-check=full --show-leak-kinds=all $(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in > ./output/mem.log
 
 test: $(TARGET_NAME)
-	@bash run_tests.sh $(BUILD_PATH)/$(TARGET_NAME) $(TMPOUT_NAME)
+	@bash run_tests.sh $(TARGET_NAME) $(TMPOUT_NAME)

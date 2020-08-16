@@ -34,5 +34,6 @@ build/tp1
 
 # Output logs
 output/*.log
-output/tp3.out
+output/tp1.out
+tp1
 output/mem.log

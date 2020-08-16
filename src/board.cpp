@@ -10,17 +10,29 @@ Board::Board(int m, int n){
     this->m = m;
     this->n = n;
     this->map = (int**) malloc(m * sizeof(int*));
+    this->visited = (int**) malloc(m * sizeof(int*));
     for(int i = 0; i < this->m; i++){
         this->map[i] = (int*) calloc(n, sizeof(int));
+        this->visited[i] = (int*) calloc(n, sizeof(int));
     }
 }
 
 Board::~Board(){
     for(int i = 0; i < this->m; i++){
         delete this->map[i];
+        delete this->visited[i];
     }
     delete this->map;
+    delete this->visited;
     if(this->graph != nullptr) delete this->graph;
+}
+
+int** Board::get_map(){
+    return this->map;
+}
+
+int** Board::get_visited(){
+    return this->visited;
 }
 
 int Board::get_m(){
@@ -35,8 +47,19 @@ int Board::matrix_index_to_node(int i, int j){
     return (this->n * i) + j;
 }
 
+int* Board::node_to_matrix_index(int node){
+    int* index = (int*) malloc(2 * sizeof(int));
+    index[1] = node % this->n;
+    index[0] = (node - index[1])/this->n;
+    return index;
+}
+
 bool Board::is_valid_index(int x, int y){
     return ((x >= 0 && x < this->m) && (y >= 0 && y < this->n));
+}
+
+void Board::visit(int x, int y){
+    this->visited[x][y] = 1;
 }
 
 void Board::set(int x, int y, int value){
@@ -56,6 +79,23 @@ void Board::print_map(){
                 std::cout << "| ";
             }
             std::cout << this->map[i][j] << " ";
+            if(j == this->n-1){
+                std::cout << "|";
+            }
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void Board::print_visited(){
+    std::cout << std::endl << "Visited: " << std::endl;
+    for(int i = 0; i < this->m; i++){
+        for(int j = 0; j < this->n; j++){
+            if(j == 0){
+                std::cout << "| ";
+            }
+            std::cout << this->visited[i][j] << " ";
             if(j == this->n-1){
                 std::cout << "|";
             }
