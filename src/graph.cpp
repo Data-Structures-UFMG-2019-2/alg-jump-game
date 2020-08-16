@@ -25,6 +25,10 @@ ListGraph::~ListGraph(){
     delete this->nodes;
 }
 
+int ListGraph::get_size(){
+    return this->size;
+}
+
 bool ListGraph::is_valid_node(int node){
     return (node >= 0 && node < this->size);
 }

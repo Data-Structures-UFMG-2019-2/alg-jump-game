@@ -16,6 +16,8 @@ namespace JumpGame{
         public:
             Board(int m, int n);
             ~Board();
+            int get_m();
+            int get_n();
             int matrix_index_to_node(int i, int j);
             bool is_valid_index(int x, int y);
             void set(int x, int y, int value);

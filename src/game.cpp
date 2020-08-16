@@ -30,6 +30,7 @@ Game::Game(std::string input_path){
         int x, y;
         input >> x >> y;
         this->players[i] = new Player(x, y);
+        this->players[i]->find_path(this->board);
     }
 
     input.close();
@@ -40,4 +41,8 @@ Game::~Game(){
 
 Board* Game::get_board(){
     return this->board;
+}
+
+Player** Game::get_players(){
+    return this->players;
 }

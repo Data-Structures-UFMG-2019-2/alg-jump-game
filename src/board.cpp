@@ -20,7 +20,15 @@ Board::~Board(){
         delete this->map[i];
     }
     delete this->map;
-    delete this->graph;
+    if(this->graph != nullptr) delete this->graph;
+}
+
+int Board::get_m(){
+    return this->m;
+}
+
+int Board::get_n(){
+    return this->n;
 }
 
 int Board::matrix_index_to_node(int i, int j){

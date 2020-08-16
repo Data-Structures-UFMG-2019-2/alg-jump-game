@@ -16,6 +16,7 @@ all: $(TARGET_NAME)
 
 $(BUILD_PATH)/%.o: $(SOURCE_PATH)/%.cpp $(LIB_PATH)/%.hpp
 	mkdir -p $(BUILD_PATH)
+	mkdir -p $(BUILD_PATH)/queue
 	mkdir -p $(BUILD_PATH)/list
 	$(CC) -c $(CFLAGS) -o $@ $<
 

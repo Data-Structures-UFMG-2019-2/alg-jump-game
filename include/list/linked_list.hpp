@@ -3,6 +3,9 @@
 
 #include"./cell.hpp"
 
+#define FRONT 0
+#define BACK 1
+
 namespace List{
     template <class T>
     class LinkedList{
@@ -17,6 +20,7 @@ namespace List{
             ~LinkedList();
             int length();
             void add(T object);
+            void add(T object, int position);
             void insert_after(Cell<T>* cell, T object);
             void insert_before(Cell<T>* cell, T object);
             T get(int i);

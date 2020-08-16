@@ -14,6 +14,7 @@ namespace JumpGame{
             Game(std::string input_path);
             ~Game();
             Board* get_board();
+            Player** get_players();
     };
 
 }

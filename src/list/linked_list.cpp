@@ -38,6 +38,27 @@ void List::LinkedList<T>::add(T object){
 }
 
 template<class T>
+void List::LinkedList<T>::add(T object, int position){
+    if(position == BACK){
+        this->add(object);
+    }
+    else if(position == FRONT){
+        List::Cell<T>* cell = new List::Cell<T>(object);
+
+        if(this->size == 0){
+            this->first = cell;
+            this->last = cell;
+        }
+        else{
+            cell->next = this->first;
+            this->first->prev = cell;
+            this->first = cell;
+        }
+        ++this->size;
+    }
+}
+
+template<class T>
 void List::LinkedList<T>::insert_after(List::Cell<T>* cell, T object){
     List::Cell<T>* new_cell = new List::Cell<T>(object);
     if(cell == nullptr){ // Insert at the beginning of the list when cell == NULL

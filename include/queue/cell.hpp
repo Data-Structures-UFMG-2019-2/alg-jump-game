@@ -1,5 +1,5 @@
-#ifndef LIST_CELL_H
-#define LIST_CELL_H
+#ifndef QUEUE_CELL_H
+#define QUEUE_CELL_H
 
 #define FORWARD 1
 #define BACKWARD 0
@@ -7,9 +7,9 @@
 #define RECURSIVE 1
 #define ITERATIVE -1
 
-namespace List {
+namespace Queue {
 
-    template <class T> class LinkedList;
+    template <class T> class Queue;
     
     template <class T>
     class Cell{
@@ -19,7 +19,7 @@ namespace List {
             Cell* prev;
             void cascade_clear(int direction);
 
-            friend class LinkedList<T>;
+            friend class Queue<T>;
         public:
             Cell(T object);
             ~Cell();
