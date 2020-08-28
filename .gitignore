@@ -33,7 +33,8 @@
 build/tp1
 
 # Output logs
-output/*.log
-output/tp1.out
+output/**/*
 tp1
-output/mem.log
+
+# Tests
+!test/*.out

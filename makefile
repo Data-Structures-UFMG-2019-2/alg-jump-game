@@ -35,5 +35,5 @@ run:
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all $(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in > ./output/mem.log
 
-test: $(TARGET_NAME)
+tests:
 	@bash run_tests.sh $(TARGET_NAME) $(TMPOUT_NAME)
