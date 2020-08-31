@@ -41,4 +41,4 @@ generator
 !test/*.out
 
 # Generated inputs
-./input/*_tmp.in
+input/*_tmp.in
