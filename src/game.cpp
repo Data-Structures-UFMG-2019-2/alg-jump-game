@@ -58,6 +58,10 @@ Player** Game::get_players(){
     return this->players;
 }
 
+int Game::get_players_number(){
+    return this->players_number;
+}
+
 int Game::get_rounds(){
     return this->rounds;
 }

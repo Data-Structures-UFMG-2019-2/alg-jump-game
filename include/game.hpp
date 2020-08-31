@@ -18,6 +18,7 @@ namespace JumpGame{
             ~Game();
             Board* get_board();
             Player** get_players();
+            int get_players_number();
             int get_rounds();
             int run_round();
             void set_order();

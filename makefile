@@ -9,7 +9,7 @@ SOURCE_PATH=./src
 LIB_PATH=./include
 INPUT_PATH=./input
 OUTPUT_PATH=./output
-RUN_TEST=03
+RUN_TEST=08
 
 SOURCE_EXT := cpp
 SOURCES := $(shell find $(SOURCE_PATH) -path '*.$(SOURCE_EXT)')
@@ -34,6 +34,9 @@ run:
 
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all $(TARGET_NAME) $(INPUT_PATH)/$(RUN_TEST).in > ./output/mem.log
+
+time:
+	@bash time.sh $(TARGET_NAME) $(TMPOUT_NAME)
 
 tests:
 	@bash run_tests.sh $(TARGET_NAME) $(TMPOUT_NAME)
