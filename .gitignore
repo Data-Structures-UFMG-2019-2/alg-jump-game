@@ -35,6 +35,10 @@ build/tp1
 # Output logs
 output/**/*
 tp1
+generator
 
 # Tests
 !test/*.out
+
+# Generated inputs
+./input/*_tmp.in
