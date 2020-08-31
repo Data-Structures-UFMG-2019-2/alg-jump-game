@@ -24,7 +24,7 @@ No primeiro caso, o jogo termina quando o primeiro jogador atinge a última casa
 O makefile preparado para a execução do código tem as seguintes opções:
 
 * make: Compila os arquivos de código fonte e armazena a saída da compilação em
-uma pasta “./build/”.
+uma pasta ```./build/```.
 * make run: Executa o arquivo gerado pela compilação.
 * make mem: Executa o arquivo gerado pela compilação em modo de depuração de memória, assim podemos nos certificar que não existe nenhum vazamento
 acontecendo durante a execução.
